@@ -63,40 +63,50 @@
 		
 		<!-- BOTÃO DE ENVIAR OS DADOS PARA O GLOOGLE PLANILHA VIA APP SCRIPT-->
 		<div class="bt_descobrir">
-		  <button onclick="checkSelection()">Descobrir</button>
+		  <button onclick="enviarDados()">Descobrir</button>
 		</div>
 	</main>
 
 <script>
-  let selectedGender = '';
-  let selectedOption = false;
+google.script.url = 'https://script.google.com/macros/s/AKfycbzd5V6uC3JtwUBrYcIr9CnyHdomulr8WlDhAUmfYn6HyEyqEdNRqXBKGbozDbscWDexrw/exec';
 
-  function selectGender(gender) {
-    selectedGender = gender;
-  }
+function enviarParaPlanilha(escolha, votante) {
+  google.script.run.withSuccessHandler(function(response) {
+    console.log("Dados enviados com sucesso!", response);
+  }).enviarParaPlanilha(escolha, votante);
+}
 
-  document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
-    input.addEventListener('change', function() {
-      selectedOption = true;
-    });
+
+let selectedGender = '';
+let selectedOption = false;
+
+function selectGender(gender) {
+  selectedGender = gender;
+}
+
+document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+  input.addEventListener('change', function() {
+    selectedOption = true;
   });
+});
 
-	function checkSelection() {
+function checkSelection() {
   if (selectedGender !== '' && selectedOption) {
-    const formData = {
-      opcao: document.querySelector('input[name=opcao]:checked').value,
-      gender: selectedGender
-    };
-
-    google.script.run.withSuccessHandler(function(response) {
-      console.log(response); // Resposta do servidor
-    }).withFailureHandler(function(error) {
-      console.error(error.message); // Se ocorrer um erro
-    }).doPost(formData);
+    enviarDados(); // Chamando a função para enviar dados
   } else {
     alert('É preciso selecionar todas as opções antes de seguir.');
   }
 }
+
+function enviarDados() {
+  const escolha = selectedGender;
+  const votante = document.querySelector('input[name=opcao]:checked').value;
+  
+  enviarParaPlanilha(escolha, votante);
+  window.location.href = "boy.html";
+}
+
+
 </script>
 </body>
 </html>
