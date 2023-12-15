@@ -95,7 +95,7 @@
     var gender = selectedGender; // Valor da variável selectedGender do seu código
     var option = document.querySelector('input[name=opcao]:checked').value; // Obtém o valor do radio button selecionado
 
-    var url = 'URL_DO_SEU_WEB_APP'; // Substitua pelo URL do seu Web App do Google Apps Script
+    var url = 'https://script.google.com/macros/s/AKfycbwQEgLcwotMHnB69Eq0USlFAHed2Bee4t7lWeEPgiPJJrA4sds7P6HDO24GJOQgb1IfYw/exec'; // Substitua pelo URL do seu Web App do Google Apps Script
 
     fetch(url, {
       method: 'POST',
@@ -114,9 +114,7 @@
     .catch(error => {
       alert('Erro ao enviar dados: ' + error.message);
     });
-  }
-  
-  
+  }  
 </script>
 </body>
 </html>
