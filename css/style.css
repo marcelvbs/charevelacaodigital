@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans:opsz@6..12&display=swap');
+*
+{
+	margin: 0;
+	padding:0;
+	box-sizing: borde-box;
+	font-family:"Nunito", sans-serif;
+}
+body{
+	max-width: 100%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+}
+main{
+	width: 100vh;
+	height: 100vh;	
+	flex-direction: column;	
+	margin: auto;
+	background-color: #e0e0e0;
+}
+.space{
+	width:100%;
+	height:100px;
+}
+.mini_space{
+	width:100%;
+	height:20px;
+}
+
+/* RELACIONADO À ESCOLHA*/
+h1{
+	text-align:center;
+}
+.spaceone{
+	width:100%;
+	height:50px;
+}
+.legenda {
+    display: flex;
+    justify-content: space-between;
+	margin-left:82px;
+	margin-right:78px;
+	padding-bottom:10px;
+}
+
+.genre_options {
+    display: flex;
+    justify-content: space-between;
+	margin-left:30px;
+	margin-right:30px;
+}
+.genre_options button {
+    width: 180px;
+    height: 180px;
+	border:none;
+	cursor: pointer;
+	background-color: white;
+	border-radius:50%;
+}
+
+/* RELACIONADO AOS VOTANTES*/
+.peoples{
+	display: flex;
+	align-items: center;
+	flex-direction:column;
+}
+.peoples_options {
+	font-size: 16px;
+	font-weight: 300;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+}
+
+/* BOTÃO DE ENVIAR */
+.bt_descobrir{
+	display: flex;
+	align-items: center;
+	flex-direction:column;
+	text-decoration:none;
+}
+.bt_descobrir button{
+	width: 150px;
+    height: 60px;
+	font-size:20px;
+}
+
+.send{
+	text-decoration:none;
+}

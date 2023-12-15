@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chá Revelação Digital</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+	
+	</style>
+</head>
+<body>
+	<main>
+	<div>
+		<!-- ESPAÇO DE AJUSTE -->
+		<div class="space"></div>
+		
+		
+		<!-- AQUI SERÁ ESCOLHIDO "MENINO" OU "MENINA" -->
+		<section class="genre">
+			<h1>Faça a sua escolha:</h1>
+			<div class="spaceone"></div>
+			<div class="legenda"><p>Team Lívia</p><p>Team Miguel</p></div>
+		  <div class="genre_options">
+			<button class="boyourgirl" onclick="selectGender('girl')">				
+			  <img src="img/girl.png" alt="imagem de menina" height="180" width="180">
+			</button>
+			<button class="boyourgirl" onclick="selectGender('boy')">			
+			  <img src="img/boy.png" alt="imagem de menino" height="180" width="180">
+			</button>
+		  </div>
+		</section>
+		
+		
+		<!-- ESPAÇO DE AJUSTE -->
+		<div class="space"></div>
+		
+		<!-- AQUI A PESSOA DIZ SE É "AVÔ(Ó)", "TIO(a)", "PRIMO(a)" OU "CURIOSO(a)" -->
+		<section class="peoples">
+		  <div class="peoples_options">
+			<label>
+			  <input type="radio" name="opcao" value="opcao1" required>
+			  Avó(o)
+			</label><div class="mini_space"></div>
+			<label>
+			  <input type="radio" name="opcao" value="opcao2" required>
+			  Tia(o)
+			</label><div class="mini_space"></div>
+			<label>
+			  <input type="radio" name="opcao" value="opcao3" required>
+			  Prima(o)
+			</label><div class="mini_space"></div>
+			<label>
+			  <input type="radio" name="opcao" value="opcao4" required>
+			  Curiosa(o)
+			</label><div class="mini_space"></div>
+		  </div>
+		</section>
+		
+		
+		<!-- ESPAÇO DE AJUSTE -->
+		<div class="space"></div>
+		
+		<!-- BOTÃO DE ENVIAR OS DADOS PARA O GLOOGLE PLANILHA VIA APP SCRIPT-->
+		<div class="bt_descobrir">
+		  <button onclick="checkSelection()">Descobrir</button>
+		</div>
+	</main>
+
+<script>
+  let selectedGender = '';
+  let selectedOption = false;
+
+  function selectGender(gender) {
+    selectedGender = gender;
+  }
+
+  document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+    input.addEventListener('change', function() {
+      selectedOption = true;
+    });
+  });
+
+  function checkSelection() {
+    if (selectedGender !== '' && selectedOption) {
+      window.location.href = "boy.html";
+    } else {
+      alert('Por favor, selecione uma opção de gênero e uma opção de pessoa.');
+    }
+  }
+  
+  // CONEXÃO COM O APP SCRIPTS
+  
+  function sendData() {
+    var gender = selectedGender; // Valor da variável selectedGender do seu código
+    var option = document.querySelector('input[name=opcao]:checked').value; // Obtém o valor do radio button selecionado
+
+    var url = 'URL_DO_SEU_WEB_APP'; // Substitua pelo URL do seu Web App do Google Apps Script
+
+    fetch(url, {
+      method: 'POST',
+      body: 'gender=' + gender + '&option=' + option,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Dados enviados com sucesso!');
+      } else {
+        alert('Erro ao enviar dados!');
+      }
+    })
+    .catch(error => {
+      alert('Erro ao enviar dados: ' + error.message);
+    });
+  }
+  
+  
+</script>
+</body>
+</html>
