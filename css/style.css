@@ -11,10 +11,11 @@ body{
 	margin: auto;
 	display: flex;
 	flex-direction: column;
+	background-color: #e0e0e0;
 }
 main{
-	width: 400px;
-	height: 900px;	
+	width: 380px;
+	height: 700px;	
 	flex-direction: column;	
 	margin: auto;
 	background-color: #e0e0e0;
@@ -39,8 +40,8 @@ h1{
 .legenda {
     display: flex;
     justify-content: space-between;
-	margin-left:62px;
-	margin-right:58px;
+	margin-left:42px;
+	margin-right:38px;
 	padding-bottom:10px;
 }
 
@@ -51,8 +52,8 @@ h1{
 	margin-right:10px;
 }
 .genre_options button {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
 	border:none;
 	cursor: pointer;
 	background-color: white;
