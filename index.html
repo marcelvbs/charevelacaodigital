@@ -81,40 +81,22 @@
     });
   });
 
-  function checkSelection() {
-    if (selectedGender !== '' && selectedOption) {
-      window.location.href = "boy.html";
-    } else {
-      alert('É preciso selecionar todas as opções antes de seguir.');
-    }
+	function checkSelection() {
+  if (selectedGender !== '' && selectedOption) {
+    const formData = {
+      opcao: document.querySelector('input[name=opcao]:checked').value,
+      gender: selectedGender
+    };
+
+    google.script.run.withSuccessHandler(function(response) {
+      console.log(response); // Resposta do servidor
+    }).withFailureHandler(function(error) {
+      console.error(error.message); // Se ocorrer um erro
+    }).doPost(formData);
+  } else {
+    alert('É preciso selecionar todas as opções antes de seguir.');
   }
-  
-  // CONEXÃO COM O APP SCRIPTS
-  
-  function sendData() {
-    var gender = selectedGender; // Valor da variável selectedGender do seu código
-    var option = document.querySelector('input[name=opcao]:checked').value; // Obtém o valor do radio button selecionado
-
-    var url = 'https://script.google.com/macros/s/AKfycbwQEgLcwotMHnB69Eq0USlFAHed2Bee4t7lWeEPgiPJJrA4sds7P6HDO24GJOQgb1IfYw/exec'; // Substitua pelo URL do seu Web App do Google Apps Script
-
-    fetch(url, {
-      method: 'POST',
-      body: 'gender=' + gender + '&option=' + option,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        alert('Dados enviados com sucesso!');
-      } else {
-        alert('Erro ao enviar dados!');
-      }
-    })
-    .catch(error => {
-      alert('Erro ao enviar dados: ' + error.message);
-    });
-  }  
+}
 </script>
 </body>
 </html>
