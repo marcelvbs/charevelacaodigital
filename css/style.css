@@ -13,8 +13,8 @@ body{
 	flex-direction: column;
 }
 main{
-	width: 720px;
-	height: 1347px;	
+	width: 400px;
+	height: 900px;	
 	flex-direction: column;	
 	margin: auto;
 	background-color: #e0e0e0;
