@@ -13,7 +13,7 @@ body{
 	flex-direction: column;
 }
 main{
-	width: 100vh;
+	width: 450px;
 	height: 100vh;	
 	flex-direction: column;	
 	margin: auto;
