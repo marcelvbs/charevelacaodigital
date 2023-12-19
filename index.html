@@ -68,38 +68,38 @@
 	</main>
 
 <script>
-  let selectedGender = '';
-  let selectedOption = false;
+	let selectedGender = '';
+	let selectedOption = false;
 
-  function selectGender(gender) {
-    selectedGender = gender;
-  }
+	function selectGender(gender) {
+	selectedGender = gender;
+	}
 
-  document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
-    input.addEventListener('change', function() {
-      selectedOption = true;
-    });
-  });
+	document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+	input.addEventListener('change', function() {
+	  selectedOption = true;
+	});
+	});
 
-  function checkSelection() {
-            if (selectedGender !== '' && selectedOption) {
-                enviarDados();
-            } else {
-                alert('É preciso selecionar todas as opções antes de seguir.');
-            }
-        }
+	function checkSelection() {
+			if (selectedGender !== '' && selectedOption) {
+				enviarDados();
+			} else {
+				alert('É preciso selecionar todas as opções antes de seguir.');
+			}
+	}
 
-        google.script.url = "https://script.google.com/macros/s/AKfycbz66Xvk-FxRor4dH2ZN-RhHCYBvX_UIGDyt_TwXwpZrzsLDlpiKPdTozf5ecU_EjAkt6g/exec";
+		google.script.run = "https://script.google.com/macros/s/AKfycbz66Xvk-FxRor4dH2ZN-RhHCYBvX_UIGDyt_TwXwpZrzsLDlpiKPdTozf5ecU_EjAkt6g/exec";
 
-function enviarDados() {
-    const escolha = selectedGender;
-    const votante = document.querySelector('input[name=opcao]:checked').value;
+	function enviarDados() {
+		const escolha = selectedGender;
+		const votante = document.querySelector('input[name=opcao]:checked').value;
 
-    google.script.run.withSuccessHandler(function(response) {
-        console.log("Dados enviados com sucesso!", response);
-        window.location.href = "boy.html";
-    }).enviarParaPlanilha(escolha, votante);
-}
+		google.script.run.withSuccessHandler(function(response) {
+			console.log("Dados enviados com sucesso!", response);
+			window.location.href = "boy.html";
+		}).enviarParaPlanilha(escolha, votante);
+	}
 
 </script>
 </body>
