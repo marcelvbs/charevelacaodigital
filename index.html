@@ -68,20 +68,20 @@
 	</main>
 
 <script>
-        let selectedGender = '';
-        let selectedOption = false;
+  let selectedGender = '';
+  let selectedOption = false;
 
-        function selectGender(gender) {
-            selectedGender = gender;
-        }
+  function selectGender(gender) {
+    selectedGender = gender;
+  }
 
-        document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
-            input.addEventListener('change', function() {
-                selectedOption = true;
-            });
-        });
+  document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+    input.addEventListener('change', function() {
+      selectedOption = true;
+    });
+  });
 
-        function checkSelection() {
+  function checkSelection() {
             if (selectedGender !== '' && selectedOption) {
                 enviarDados();
             } else {
@@ -98,7 +98,6 @@
                 window.location.href = "boy.html";
             });
         }
-    </script>
 </script>
 </body>
 </html>
