@@ -45,13 +45,13 @@ h1{
 	padding-bottom:10px;
 }
 
-.genre_options {
+.gender_options {
     display: flex;
     justify-content: space-between;
 	margin-left:10px;
 	margin-right:10px;
 }
-.genre_options button {
+.gender_options button {
     width: 150px;
     height: 150px;
 	border:none;
