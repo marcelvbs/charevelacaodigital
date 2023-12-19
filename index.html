@@ -17,11 +17,11 @@
 		
 		
 		<!-- AQUI SERÁ ESCOLHIDO "MENINO" OU "MENINA" -->
-		<section class="genre">
+		<section class="gender">
 			<h1>Faça a sua escolha:</h1>
 			<div class="spaceone"></div>
 			<div class="legenda"><p>Team Lívia</p><p>Team Miguel</p></div>
-		  <div class="genre_options">
+		  <div class="gender_options">
 			<button class="boyourgirl" onclick="selectGender('girl')">				
 			  <img src="img/girl.png" alt="imagem de menina" height="150" width="150">
 			</button>
@@ -63,50 +63,42 @@
 		
 		<!-- BOTÃO DE ENVIAR OS DADOS PARA O GLOOGLE PLANILHA VIA APP SCRIPT-->
 		<div class="bt_descobrir">
-		  <button onclick="enviarDados()">Descobrir</button>
+		  <button onclick="checkSelection()">Descobrir</button>
 		</div>
 	</main>
 
 <script>
-google.script.url = 'https://script.google.com/macros/s/AKfycbzd5V6uC3JtwUBrYcIr9CnyHdomulr8WlDhAUmfYn6HyEyqEdNRqXBKGbozDbscWDexrw/exec';
+        let selectedGender = '';
+        let selectedOption = false;
 
-function enviarParaPlanilha(escolha, votante) {
-  google.script.run.withSuccessHandler(function(response) {
-    console.log("Dados enviados com sucesso!", response);
-  }).enviarParaPlanilha(escolha, votante);
-}
+        function selectGender(gender) {
+            selectedGender = gender;
+        }
 
+        document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+            input.addEventListener('change', function() {
+                selectedOption = true;
+            });
+        });
 
-let selectedGender = '';
-let selectedOption = false;
+        function checkSelection() {
+            if (selectedGender !== '' && selectedOption) {
+                enviarDados();
+            } else {
+                alert('É preciso selecionar todas as opções antes de seguir.');
+            }
+        }
 
-function selectGender(gender) {
-  selectedGender = gender;
-}
+        function enviarDados() {
+            const escolha = selectedGender;
+            const votante = document.querySelector('input[name=opcao]:checked').value;
 
-document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
-  input.addEventListener('change', function() {
-    selectedOption = true;
-  });
-});
-
-function checkSelection() {
-  if (selectedGender !== '' && selectedOption) {
-    enviarDados(); // Chamando a função para enviar dados
-  } else {
-    alert('É preciso selecionar todas as opções antes de seguir.');
-  }
-}
-
-function enviarDados() {
-  const escolha = selectedGender;
-  const votante = document.querySelector('input[name=opcao]:checked').value;
-  
-  enviarParaPlanilha(escolha, votante);
-  window.location.href = "boy.html";
-}
-
-
+            google.script.run.enviarParaPlanilha(escolha, votante, function(response) {
+                console.log("Dados enviados com sucesso!", response);
+                window.location.href = "boy.html";
+            });
+        }
+    </script>
 </script>
 </body>
 </html>
