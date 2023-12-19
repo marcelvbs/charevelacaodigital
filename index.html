@@ -89,15 +89,18 @@
             }
         }
 
-        function enviarDados() {
-            const escolha = selectedGender;
-            const votante = document.querySelector('input[name=opcao]:checked').value;
+        google.script.url = "https://script.google.com/macros/s/AKfycbz66Xvk-FxRor4dH2ZN-RhHCYBvX_UIGDyt_TwXwpZrzsLDlpiKPdTozf5ecU_EjAkt6g/exec";
 
-            google.script.run.enviarParaPlanilha(escolha, votante, function(response) {
-                console.log("Dados enviados com sucesso!", response);
-                window.location.href = "boy.html";
-            });
-        }
+function enviarDados() {
+    const escolha = selectedGender;
+    const votante = document.querySelector('input[name=opcao]:checked').value;
+
+    google.script.run.withSuccessHandler(function(response) {
+        console.log("Dados enviados com sucesso!", response);
+        window.location.href = "boy.html";
+    }).enviarParaPlanilha(escolha, votante);
+}
+
 </script>
 </body>
 </html>
