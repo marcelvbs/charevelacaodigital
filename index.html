@@ -83,13 +83,14 @@
 
 	function checkSelection() {
 			if (selectedGender !== '' && selectedOption) {
-				enviarDados();
+				window.location.href = "boy.html";
+    //enviarDados();
 			} else {
 				alert('É preciso selecionar todas as opções antes de seguir.');
 			}
 	}
 
-	function enviarDados() {
+<!--	function enviarDados() {
     const escolha = selectedGender;
     const votante = document.querySelector('input[name=opcao]:checked').value;
 
@@ -97,9 +98,9 @@
         console.log("Dados enviados com sucesso!", response);
         window.location.href = "boy.html";
     });
-}
+}-->
 </script>
-<script
+<!-- <script
 	type="text/javascript"
 	src='https://apis.google.com/js/api.js'
 	async
@@ -107,6 +108,6 @@
 	crossOrigin="anonymous"
 	onload="this.onload=function(){};"
 	onreadystatechange="if (this.readyState === 'complete') this.onload()"
-/>
+/> -->
 </body>
 </html>
