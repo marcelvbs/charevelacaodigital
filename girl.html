@@ -30,13 +30,42 @@ main{
 .baby img{
         width: 380px;
         height:380px;
-        border-radius:50%;     
-        border:16px solid ligthgrey;
-        display: flex;
-        align-items: bottom;
-        flex-direction:column;
+        border-radius:50%; 
+       // display: flex;
+        //align-items: bottom;
+       // flex-direction:column;
+}
+.baby{
+  animation: pulse 0.7s infinite;
+  margin: 0 auto;
+  display: table;
+  margin-top: 50px;
+  animation-direction: alternate;
+  -webkit-animation-name: baby;
+  animation-name: baby;
 }
 
+@-webkit-keyframes baby {
+  0% {
+    -webkit-transform: scale(1);
+    -webkit-filter: brightness(100%);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+    -webkit-filter: brightness(200%);
+  }
+}
+
+@keyframes baby {
+  0% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+  100% {
+    transform: scale(1.1);
+    filter: brightness(200%);
+  }
+}
 .space{
         width:100%;
         height:100px;
