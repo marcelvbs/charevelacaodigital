@@ -11,7 +11,6 @@
 </head>
 <body>
 	<main>
-	<div>
 		<!-- ESPAÇO DE AJUSTE -->
 		<div class="spaceone"></div>
 		
@@ -80,34 +79,47 @@
 	  selectedOption = true;
 	});
 	});
+	
+function sendDataToSheet(gender, people) {
+  const url = 'https://script.google.com/macros/s/AKfycbzMrhZURAWHDrWHpSY50lMO7EgOjI-3K4ymHSLx9cFvhFN2yC7u3qwTdHmPCUTBqytDwQ/exec'; // Substitua pelo URL fornecido ao publicar o script.
 
-	function checkSelection() {
-			if (selectedGender !== '' && selectedOption) {
-				window.location.href = "boy.html";
-    //enviarDados();
-			} else {
-				alert('É preciso selecionar todas as opções antes de seguir.');
-			}
-	}
+  const data = {
+    gender: gender,
+    people: people
+  };
 
-//	function enviarDados() {
-  //  const escolha = selectedGender;
- //   const votante = document.querySelector('input[name=opcao]:checked').value;
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(data),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao enviar os dados para a planilha.');
+    }
+    return response.text();
+  })
+  .then(responseText => {
+    console.log(responseText);
+    // Faça o que for necessário após enviar com sucesso.
+  })
+  .catch(error => {
+    console.error('Erro:', error.message);
+  });
+}
 
-    //google.script.run.enviarParaPlanilha(escolha, ///votante, function(response) {
-     //   console.log("Dados enviados com //sucesso!", response);
-       // window.location.href = "boy.html";
-    //});
-//}
+function checkSelection() {
+  if (selectedGender !== '' && selectedOption) {
+    sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
+    window.location.href = "boy.html";
+  } else {
+    alert('É preciso selecionar todas as opções antes de seguir.');
+  }
+}
+  
+	
 </script>
-<!-- <script
-	type="text/javascript"
-	src='https://apis.google.com/js/api.js'
-	async
-	defer
-	crossOrigin="anonymous"
-	onload="this.onload=function(){};"
-	onreadystatechange="if (this.readyState === 'complete') this.onload()"
-/> -->
 </body>
 </html>
