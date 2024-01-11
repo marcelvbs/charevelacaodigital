@@ -70,6 +70,12 @@
 	let selectedGender = '';
 	let selectedOption = false;
 
+	if (document.cookie.indexOf("voto_contador") !== -1) {
+            alert("Você já votou.");
+            // Redirecionar o usuário para a página votacao.html
+            window.location.href = "votacao.html";
+        }
+
 	function selectGender(gender) {
 	selectedGender = gender;
 	}
