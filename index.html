@@ -126,7 +126,7 @@ function sendDataToSheet(gender, people) {
 function checkSelection() {
     if (checkIfVoted()) {
         // Mostrar alerta e, após clicar em "OK", redirecionar para a página "votacao.html"
-        alert('Você já votou. Não é possível votar novamente.');
+        alert('Você já votou. Clique em OK e acompnahe o resultado.');
         window.location.href = "votacao.html";
     } else if (selectedGender !== '' && selectedOption) {
         sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
