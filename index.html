@@ -50,7 +50,7 @@
 			  Prima(o)
 			</label><div class="mini_space"></div>
 			<label>
-			  <input type="radio" name="opcao" value="Amigos" required>
+			  <input type="radio" name="opcao" value="Amigos dos pais" required>
 			  Amigos dos pais
 			</label><div class="mini_space"></div>
 		  </div>
@@ -67,63 +67,73 @@
 	</main>
 
 <script>
-	let selectedGender = '';
-	let selectedOption = false;
+let selectedGender = '';
+let selectedOption = false;
 
-	if (document.cookie.indexOf("voto_contador") !== -1) {
-            alert("Você já votou.");
-            // Redirecionar o usuário para a página votacao.html
-            window.location.href = "votacao.html";
-        }
-
-	function selectGender(gender) {
+function selectGender(gender) {
 	selectedGender = gender;
-	}
+}
 
-	document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
 	input.addEventListener('change', function() {
-	  selectedOption = true;
+		selectedOption = true;
 	});
-	});
+});
+
+// Verificar se o cookie de voto existe
+function checkIfVoted() {
+    return document.cookie.includes('voted=true');
+}
+
+// Definir o cookie de voto
+function setVotedCookie() {
+    document.cookie = 'voted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+}
+
 	
 function sendDataToSheet(gender, people) {
-  const url = 'https://script.google.com/macros/s/AKfycbzMrhZURAWHDrWHpSY50lMO7EgOjI-3K4ymHSLx9cFvhFN2yC7u3qwTdHmPCUTBqytDwQ/exec'; // Substitua pelo URL fornecido ao publicar o script.
+    const url = 'https://script.google.com/macros/s/AKfycbzMrhZURAWHDrWHpSY50lMO7EgOjI-3K4ymHSLx9cFvhFN2yC7u3qwTdHmPCUTBqytDwQ/exec';
 
-  const data = {
-    gender: gender,
-    people: people
-  };
+    const data = {
+        gender: gender,
+        people: people
+    };
 
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(data),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erro ao enviar os dados para a planilha.');
-    }
-    return response.text();
-  })
-  .then(responseText => {
-    console.log(responseText);
-    // Faça o que for necessário após enviar com sucesso.
-  })
-  .catch(error => {
-    console.error('Erro:', error.message);
-  });
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao enviar os dados para a planilha.');
+        }
+        // Definir o cookie de voto após o envio bem-sucedido
+        setVotedCookie();
+        return response.text();
+    })
+    .then(responseText => {
+        console.log(responseText);
+    })
+    .catch(error => {
+        console.error('Erro:', error.message);
+    });
 }
+
 
 function checkSelection() {
-  if (selectedGender !== '' && selectedOption) {
-    sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
-    window.location.href = "boy.html";
-  } else {
-    alert('É preciso selecionar todas as opções antes de seguir.');
-  }
+    if (checkIfVoted()) {
+        alert('Você já votou. Não é possível votar novamente.');
+    } else if (selectedGender !== '' && selectedOption) {
+        sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
+        window.location.href = "boy.html";
+    } else {
+        alert('É preciso selecionar todas as opções antes de seguir.');
+    }
 }
+
   
 	
 </script>
