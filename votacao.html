@@ -20,9 +20,9 @@
     fetch('https://script.google.com/macros/s/AKfycbydaatak68eDgkdqtIdaQzQL8NEpu0_0YCzA2laJiTbKCQQpRvGPZM5bJMOX27HLhAPEA/exec')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('cellE1').innerText = 'Célula E1: ' + data[0];
-            document.getElementById('cellE2').innerText = 'Célula E2: ' + data[1];
-            document.getElementById('cellE3').innerText = 'Célula E3: ' + data[2];
+            data.forEach((value, index) => {
+                document.getElementById('cellE' + (index + 1)).innerText = 'Célula E' + (index + 1) + ': ' + value;
+            });
         })
         .catch(error => console.error('Erro ao buscar os dados:', error));
 </script>
