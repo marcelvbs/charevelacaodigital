@@ -4,24 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votação</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-    </style>
 </head>
 <body>
-
-<h1>Votação</h1>
-
-    <div id="valorCélula"></div>
+    <h1>Votação</h1>
+    <button onclick="recuperarValor()">Obter Valor da Célula E1</button>
+    <div id="valorCelula"></div>
 
     <script>
-        function getValorCelula() {
+        function recuperarValor() {
             google.script.run.withSuccessHandler(function(valorCelula) {
-                document.getElementById('valorCélula').innerText = 'O valor da célula E1 é: ' + valorCelula;
+                document.getElementById('valorCelula').innerText = 'O valor da célula E1 é: ' + valorCelula;
             }).recuperarValor();
         }
     </script>
-
-    <button onclick="getValorCelula()">Obter Valor da Célula E1</button>
 </body>
 </html>
