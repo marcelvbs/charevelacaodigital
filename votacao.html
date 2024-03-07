@@ -12,45 +12,16 @@
 
 <h1>Votação</h1>
 
-<table id="tabela">
-        <tr>
-            <td id="celula"></td>
-        </tr>
-    </table>
+    <div id="valorCélula"></div>
 
-<script>
-    // URL da planilha do Google Sheets
-var url = 'https://docs.google.com/spreadsheets/d/1htOY5MBejsUASbvOF_AJlJ7_cggsq3rCJc5s8zJHO04/edit#gid=0';
+    <script>
+        function getValorCelula() {
+            google.script.run.withSuccessHandler(function(valorCelula) {
+                document.getElementById('valorCélula').innerText = 'O valor da célula E1 é: ' + valorCelula;
+            }).recuperarValor();
+        }
+    </script>
 
-// Função para carregar e processar a planilha
-function carregarPlanilha(url) {
-    // Carregar a planilha usando a função fetch
-    fetch(url)
-        .then(function(response) {
-            return response.arrayBuffer();
-        })
-        .then(function(arrayBuffer) {
-            // Converter o array de bytes em um workbook
-            var workbook = XLSX.read(new Uint8Array(arrayBuffer), {type: 'array'});
-
-            // Obter a primeira planilha do workbook
-            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-
-            // Obter o valor da célula A1
-            var cellValue = firstSheet['E1'].v;
-
-            // Exibir o valor na célula da tabela HTML
-            document.getElementById('celula').innerText = cellValue;
-        })
-        .catch(function(err) {
-            console.error(err);
-        });
-}
-
-// Chamar a função para carregar a planilha
-carregarPlanilha(url);
-
-</script>
-
+    <button onclick="getValorCelula()">Obter Valor da Célula E1</button>
 </body>
 </html>
