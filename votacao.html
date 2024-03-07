@@ -12,19 +12,44 @@
 
 <h1>Votação</h1>
 
-<p id="cellE1"></p>
-<p id="cellE2"></p>
-<p id="cellE3"></p>
+<table id="tabela">
+        <tr>
+            <td id="celula"></td>
+        </tr>
+    </table>
 
 <script>
-    fetch('https://script.google.com/macros/s/AKfycbyLU5nUHXlBa5lrGgX3h3QqEmNuKOx2bwsPrC8Dm477tVE0SPN5BXnrcAVTFR5oiF5qlg/exec')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('cellE1').innerText = 'Célula E1: ' + data[0][0];
-            document.getElementById('cellE2').innerText = 'Célula E2: ' + data[1][0];
-            document.getElementById('cellE3').innerText = 'Célula E3: ' + data[2][0];
+    // URL da planilha do Google Sheets
+var url = 'https://docs.google.com/spreadsheets/d/1htOY5MBejsUASbvOF_AJlJ7_cggsq3rCJc5s8zJHO04/edit#gid=0';
+
+// Função para carregar e processar a planilha
+function carregarPlanilha(url) {
+    // Carregar a planilha usando a função fetch
+    fetch(url)
+        .then(function(response) {
+            return response.arrayBuffer();
         })
-        .catch(error => console.error('Erro ao buscar os dados:', error));
+        .then(function(arrayBuffer) {
+            // Converter o array de bytes em um workbook
+            var workbook = XLSX.read(new Uint8Array(arrayBuffer), {type: 'array'});
+
+            // Obter a primeira planilha do workbook
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+
+            // Obter o valor da célula A1
+            var cellValue = firstSheet['E1'].v;
+
+            // Exibir o valor na célula da tabela HTML
+            document.getElementById('celula').innerText = cellValue;
+        })
+        .catch(function(err) {
+            console.error(err);
+        });
+}
+
+// Chamar a função para carregar a planilha
+carregarPlanilha(url);
+
 </script>
 
 </body>
