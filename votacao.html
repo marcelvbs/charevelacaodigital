@@ -7,15 +7,26 @@
 </head>
 <body>
     <h1>Votação</h1>
-    <button onclick="recuperarValor()">Obter Valor da Célula E1</button>
-    <div id="valorCelula"></div>
+    <p id="cellValue"></p>
 
     <script>
-        function recuperarValor() {
-            google.script.run.withSuccessHandler(function(valorCelula) {
-                document.getElementById('valorCelula').innerText = 'O valor da célula E1 é: ' + valorCelula;
-            }).recuperarValor();
+        // Função para fazer uma solicitação AJAX para o Google Apps Script
+        function fetchCellValue() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbzzbmVFaLz4H_vmbXsDOgM98EmZahUUj-P1eZppyNxDI1JLN6vyTBRA2O82cii57DikWg/exec');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById('cellValue').textContent = response.value;
+                } else {
+                    console.error('Erro ao buscar valor da célula:', xhr.statusText);
+                }
+            };
+            xhr.send();
         }
+
+        // Chama a função para buscar e exibir o valor da célula ao carregar a página
+        window.onload = fetchCellValue;
     </script>
 </body>
 </html>
