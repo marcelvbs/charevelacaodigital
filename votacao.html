@@ -13,7 +13,7 @@
         // Função para fazer uma solicitação AJAX para o Google Apps Script
         function fetchCellValue() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbzzbmVFaLz4H_vmbXsDOgM98EmZahUUj-P1eZppyNxDI1JLN6vyTBRA2O82cii57DikWg/exec');
+            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbwxa9kFaRoDYqSr0j6zLk_k8P5JkLhtyynkOK4_Kd4FvUysDkrw3pwykjkmjJH3s0Xvyg/exec');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
