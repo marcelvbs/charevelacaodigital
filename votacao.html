@@ -22,6 +22,9 @@
                     console.error('Erro ao buscar valor da célula:', xhr.statusText);
                 }
             };
+            xhr.onerror = function() {
+                console.error('Erro na solicitação AJAX.');
+            };
             xhr.send();
         }
 
