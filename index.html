@@ -110,16 +110,17 @@ function sendDataToSheet(gender, people) {
         if (!response.ok) {
             throw new Error('Erro ao enviar os dados para a planilha.');
         }
-        // Definir o cookie de voto após o envio bem-sucedido
-        setVotedCookie();
-        return response.text();
-    })
-    .then(responseText => {
-        console.log(responseText);
-    })
-    .catch(error => {
-        console.error('Erro:', error.message);
-    });
+        // Definir cookie após sucesso no envio
+	setVotedCookie();
+	return response.text();
+})
+.then(responseText => {
+	console.log(responseText);
+	window.location.href = "boy.html"; // Redirecionar após sucesso
+})
+.catch(error => {
+	console.error('Erro:', error.message);
+});
 }
 
 
