@@ -5,141 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chá Revelação Digital</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<style>
-	
-	</style>
 </head>
 <body>
 	<main>
 		<!-- ESPAÇO DE AJUSTE -->
 		<div class="spaceone"></div>
 		
-		
 		<!-- AQUI SERÁ ESCOLHIDO "MENINO" OU "MENINA" -->
 		<section class="gender">
 			<h1>Faça a sua escolha:</h1>
 			<div class="spaceone"></div>
 			<div class="legenda"><p>Team Lívia</p><p>Team Miguel</p></div>
-		  <div class="gender_options">
-			<button class="boyourgirl" onclick="selectGender('girl')">				
-			  <img src="img/girl.png" alt="imagem de menina" height="150" width="150">
-			</button>
-			<button class="boyourgirl" onclick="selectGender('boy')">			
-			  <img src="img/boy.png" alt="imagem de menino" height="150" width="150">
-			</button>
-		  </div>
+			<div class="gender_options">
+				<button class="boyourgirl" onclick="selectGender('girl')">
+					<img src="img/girl.png" alt="imagem de menina" height="150" width="150">
+				</button>
+				<button class="boyourgirl" onclick="selectGender('boy')">
+					<img src="img/boy.png" alt="imagem de menino" height="150" width="150">
+				</button>
+			</div>
 		</section>
-		
 		
 		<!-- ESPAÇO DE AJUSTE -->
 		<div class="spaceone"></div><br>
 		
 		<!-- AQUI A PESSOA DIZ SE É "AVÔ(Ó)", "TIO(a)", "PRIMO(a)" OU "CURIOSO(a)" -->
 		<section class="peoples">
-		  <div class="peoples_options">
-			<label>
-			  <input type="radio" name="opcao" value="Avós" required>
-			  Avó(o)
-			</label><div class="mini_space"></div>
-			<label>
-			  <input type="radio" name="opcao" value="Tios" required>
-			  Tia(o)
-			</label><div class="mini_space"></div>
-			<label>
-			  <input type="radio" name="opcao" value="Primos" required>
-			  Prima(o)
-			</label><div class="mini_space"></div>
-			<label>
-			  <input type="radio" name="opcao" value="Amigos dos pais" required>
-			  Amigos dos pais
-			</label><div class="mini_space"></div>
-		  </div>
+			<div class="peoples_options">
+				<label>
+					<input type="radio" name="opcao" value="Avós" required>
+					Avó(o)
+				</label><div class="mini_space"></div>
+				<label>
+					<input type="radio" name="opcao" value="Tios" required>
+					Tia(o)
+				</label><div class="mini_space"></div>
+				<label>
+					<input type="radio" name="opcao" value="Primos" required>
+					Prima(o)
+				</label><div class="mini_space"></div>
+				<label>
+					<input type="radio" name="opcao" value="Amigos dos pais" required>
+					Amigos dos pais
+				</label><div class="mini_space"></div>
+			</div>
 		</section>
-		
 		
 		<!-- ESPAÇO DE AJUSTE -->
 		<div class="spaceone"></div>
 		
-		<!-- BOTÃO DE ENVIAR OS DADOS PARA O GLOOGLE PLANILHA VIA APP SCRIPT-->
+		<!-- BOTÕES DE ENVIO E VOTAÇÃO -->
 		<div class="bt_descobrir">
-		  <button onclick="checkSelection()">Descobrir</button>
+			<button onclick="checkSelection()">Descobrir</button>
+		</div>
+
+		<!-- BOTÃO PARA A PÁGINA DE VOTAÇÃO -->
+		<div class="bt_votacao">
+			<button onclick="window.location.href='votacao.html'">Votação</button>
 		</div>
 	</main>
 
-<script>
-let selectedGender = '';
-let selectedOption = false;
+	<script>
+		let selectedGender = '';
+		let selectedOption = false;
 
-function selectGender(gender) {
-	selectedGender = gender;
-}
+		function selectGender(gender) {
+			selectedGender = gender;
+		}
 
-document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
-	input.addEventListener('change', function() {
-		selectedOption = true;
-	});
-});
+		document.querySelectorAll('input[type=radio][name=opcao]').forEach(input => {
+			input.addEventListener('change', function() {
+				selectedOption = true;
+			});
+		});
 
-// Verificar se o cookie de voto existe
-function checkIfVoted() {
-    return document.cookie.includes('voted=true');
-}
+		// Verificar se o cookie de voto existe
+		function checkIfVoted() {
+			return document.cookie.includes('voted=true');
+		}
 
-// Definir o cookie de voto
-function setVotedCookie() {
-    document.cookie = 'voted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
-}
+		// Definir o cookie de voto
+		function setVotedCookie() {
+			document.cookie = 'voted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+		}
 
-	
-function sendDataToSheet(gender, people) {
-    const url = 'https://script.google.com/macros/s/AKfycbwxa9kFaRoDYqSr0j6zLk_k8P5JkLhtyynkOK4_Kd4FvUysDkrw3pwykjkmjJH3s0Xvyg/exec';
+		// Enviar os dados para o Google Sheets via Apps Script
+		function sendDataToSheet(gender, people) {
+			const url = 'https://script.google.com/macros/s/AKfycbwxa9kFaRoDYqSr0j6zLk_k8P5JkLhtyynkOK4_Kd4FvUysDkrw3pwykjkmjJH3s0Xvyg/exec';
 
-    const data = {
-        gender: gender,
-        people: people
-    };
+			const data = {
+				gender: gender,
+				people: people
+			};
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(data),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro ao enviar os dados para a planilha.');
-        }
-        // Definir cookie após sucesso no envio
-	setVotedCookie();
-	return response.text();
-})
-.then(responseText => {
-	console.log(responseText);
-	window.location.href = "boy.html"; // Redirecionar após sucesso
-})
-.catch(error => {
-	console.error('Erro:', error.message);
-});
-}
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: new URLSearchParams(data),
+			})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Erro ao enviar os dados para a planilha.');
+				}
+				// Definir o cookie de voto após o envio bem-sucedido
+				setVotedCookie();
+				return response.text();
+			})
+			.then(responseText => {
+				console.log(responseText);
+			})
+			.catch(error => {
+				console.error('Erro:', error.message);
+			});
+		}
 
-
-function checkSelection() {
-    if (checkIfVoted()) {
-        // Mostrar alerta e, após clicar em "OK", redirecionar para a página "votacao.html"
-        alert('Você já votou. Não é possível votar novamente.');
-        window.location.href = "votacao.html";
-    } else if (selectedGender !== '' && selectedOption) {
-        sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
-        window.location.href = "boy.html";
-    } else {
-        alert('É preciso selecionar todas as opções antes de seguir.');
-    }
-}
-
-
-  
-	
-</script>
+		// Verificar se todas as opções foram selecionadas
+		function checkSelection() {
+			if (checkIfVoted()) {
+				// Mostrar alerta e redirecionar para a página "votacao.html"
+				alert('Você já votou. Não é possível votar novamente.');
+				window.location.href = "votacao.html";
+			} else if (selectedGender !== '' && selectedOption) {
+				sendDataToSheet(selectedGender, document.querySelector('input[name=opcao]:checked').value);
+				window.location.href = "boy.html"; // Redirecionar para página de agradecimento ou revelação
+			} else {
+				alert('É preciso selecionar todas as opções antes de seguir.');
+			}
+		}
+	</script>
 </body>
 </html>
