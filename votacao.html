@@ -7,29 +7,43 @@
 </head>
 <body>
     <h1>Votação</h1>
-    <p id="cellValue"></p>
+    <table id="votacaoTable">
+        <thead>
+            <tr>
+                <th>Gênero</th>
+                <th>Parentesco</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados serão inseridos aqui -->
+        </tbody>
+    </table>
 
     <script>
-        // Função para fazer uma solicitação AJAX para o Google Apps Script
-        function fetchCellValue() {
+        // Função para fazer a solicitação AJAX ao Google Apps Script e preencher a tabela
+        function fetchVotingData() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbwxa9kFaRoDYqSr0j6zLk_k8P5JkLhtyynkOK4_Kd4FvUysDkrw3pwykjkmjJH3s0Xvyg/exec');
+            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbwfJ2k2zxUW1CKTS2Ey7K-wErUaXNdiE1F17lU5sxmRXqgDxAdZTMo2j8YZ5MN0yDHkTg/exec');
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.getElementById('cellValue').textContent = response.value;
+                    var data = JSON.parse(xhr.responseText);
+                    var tableBody = document.querySelector('#votacaoTable tbody');
+                    tableBody.innerHTML = ''; // Limpa qualquer dado anterior
+
+                    data.forEach(function(row) {
+                        var newRow = document.createElement('tr');
+                        newRow.innerHTML = `<td>${row.gender}</td><td>${row.people}</td>`;
+                        tableBody.appendChild(newRow);
+                    });
                 } else {
-                    console.error('Erro ao buscar valor da célula:', xhr.statusText);
+                    console.error('Erro ao buscar os dados de votação:', xhr.statusText);
                 }
-            };
-            xhr.onerror = function() {
-                console.error('Erro na solicitação AJAX.');
             };
             xhr.send();
         }
 
-        // Chama a função para buscar e exibir o valor da célula ao carregar a página
-        window.onload = fetchCellValue;
+        // Chama a função para buscar e exibir os dados ao carregar a página
+        window.onload = fetchVotingData;
     </script>
 </body>
 </html>
