@@ -23,7 +23,7 @@
         // Função para fazer a solicitação AJAX ao Google Apps Script e preencher a tabela
         function fetchVotingData() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbwfJ2k2zxUW1CKTS2Ey7K-wErUaXNdiE1F17lU5sxmRXqgDxAdZTMo2j8YZ5MN0yDHkTg/exec');
+            xhr.open('GET', 'https://script.google.com/macros/s/AKfycbwHtLEkPmx0JQQcSa_oYbRnyLwJQZXO43nfM1YO0_7i46nFBkSRPIb6VTDSFW5QOSwu/exec');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
